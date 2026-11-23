@@ -11,7 +11,8 @@ Built by Adept as a phase-1 demo. No build step, no framework.
 | `index.html` | Homepage: Drive/Work switch with video reels, model rails, Fernandes, services, contact |
 | `hr-v.html` | Honda HR-V model page |
 | `d-max.html` | Isuzu D-Max model page (versions & prices comparison) |
-| `aion-v.html` | GAC Aion V model page (EV: range, charging, savings calculator) |
+| `aion-v.html` | GAC Aion V model page (EV: range, charging, savings calculator in SRD) |
+| `used.html` | Used cars: faceted filters, sorting, shareable URLs, detail dialog. Data in `assets/data/used.js` |
 
 ## Structure
 
