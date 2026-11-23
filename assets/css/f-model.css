@@ -110,7 +110,7 @@ body { background: var(--stone); }
 .tile h4 { font-size: 22px; font-weight: 600; letter-spacing: -.03em; }
 .tile p { font-size: 15px; color: var(--ink-2); }
 .tile--paint { background: var(--paint); color: var(--paint-ink); transition: background .6s; }
-.tile--paint p { color: inherit; opacity: .85; }
+.tile--paint p { color: inherit; opacity: 1; }   /* full white on paint/green: 5:1+ */
 .tile--paint .btn { background: #fff; color: var(--ink); }
 
 /* ---------- Price: calculator + test drive ---------- */
