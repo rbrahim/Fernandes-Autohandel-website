@@ -1,0 +1,14 @@
+.ytbg { position: absolute; inset: 0; overflow: hidden; container-type: size; background: #000; }
+.ytbg__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .9s ease, transform 8s ease; }
+.ytbg__frame {
+  position: absolute; top: 50%; left: 50%; border: 0; pointer-events: none;
+  width: max(100cqw, calc(100cqh * 1.7778)); height: max(100cqh, calc(100cqw * 0.5625));
+  transform: translate(-50%, -50%) scale(1.18); opacity: 0; transition: opacity .9s ease;
+}
+/* is-playing = wanted (hover/visible); is-live = YouTube reports playback */
+/* the delay hides YouTube's own controls, which flash briefly when playback starts */
+.ytbg.is-playing.is-live .ytbg__frame { opacity: 1; transition-delay: 1.4s; }
+.ytbg.is-playing.is-live .ytbg__poster { opacity: 0; transition-delay: 1.4s; }
+.ytbg.is-static .ytbg__poster { animation: ytbg-kenburns 18s ease-in-out infinite alternate; }
+@keyframes ytbg-kenburns { from { transform: scale(1); } to { transform: scale(1.12) translate(-2%, -1%); } }
+@media (prefers-reduced-motion: reduce) { .ytbg__frame { display: none; } .ytbg.is-static .ytbg__poster { animation: none; } }

@@ -1,0 +1,11 @@
+# Design explorations (not part of the site)
+_archive/
+
+# Local IIS only: disables browser caching while developing
+web.config
+
+# OS / editor clutter
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
