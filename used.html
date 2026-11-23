@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Used cars — Fernandes Autohandel</title>
+<meta name="description" content="Used cars at Fernandes Autohandel, Paramaribo. Inspected in our own workshop, prices incl. BTW. Filter by brand, price, year, mileage, transmission and 4WD.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/f-base.css?v=6">
+<link rel="stylesheet" href="assets/css/f-nav.css?v=6">
+<link rel="stylesheet" href="assets/css/f-used.css?v=1">
+</head>
+<body class="page-used" data-on="light" data-home="index.html" data-img="assets/img/">
+
+<header class="nav">
+  <a class="nav__logo" href="index.html"><img src="assets/img/brand/fernandes-logo-white.png" alt="Fernandes Autohandel N.V."></a>
+  <nav class="nav__links" id="nav">
+    <button class="nav__item" type="button" data-menu="drive" aria-expanded="false" aria-controls="mega-drive"><i></i>Drive<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+    <button class="nav__item" type="button" data-menu="work" aria-expanded="false" aria-controls="mega-work"><i></i>Work<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+    <a href="used.html" aria-current="page">Used</a>
+    <a href="index.html#services">Rental &amp; lease</a>
+    <a href="index.html#services">Service</a>
+    <a href="index.html#fernandes">About</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <a class="btn" href="index.html#contact">Test drive <i>↗</i></a>
+  <button class="btn menu-btn" data-menu-toggle aria-expanded="false" aria-controls="nav">Menu <i>≡</i></button>
+</header>
+<div class="mega" id="mega-drive" data-mega="drive" role="region" aria-label="Drive models"></div>
+<div class="mega" id="mega-work" data-mega="work" role="region" aria-label="Work models"></div>
+
+<main>
+  <section class="u-hero">
+    <div>
+      <h1>Used cars<span>.</span></h1>
+      <p>Trade-ins and ex-fleet vehicles, checked in our own workshop before they go on sale. New cars arrive every week.</p>
+    </div>
+    <div class="u-trust">
+      <div><b>Workshop-checked</b><span>By Fernandes technicians</span></div>
+      <div><b>Prices incl. BTW</b><span>No surprises at the desk</span></div>
+      <div><b>Trade-in welcome</b><span>We value your car</span></div>
+    </div>
+  </section>
+
+  <div class="u-wrap">
+    <aside class="u-filters" aria-label="Filters">
+      <div class="u-filters__head"><h2>Filters</h2><button class="u-link" type="button" data-clear>Clear all</button></div>
+      <form id="u-form" role="search"></form>
+      <div class="u-filters__apply"><button class="btn" type="button" id="u-apply"><span>Show <span id="u-apply-n">0</span> cars</span> <i>→</i></button></div>
+    </aside>
+
+    <section class="u-results" aria-live="polite">
+      <div class="u-bar">
+        <div class="u-count" id="u-count"></div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn--light u-open" type="button" id="u-open" aria-expanded="false" aria-controls="u-form"><span>Filters <span id="u-open-n"></span></span> <i>⚙</i></button>
+          <label class="u-sort"><span>Sort by</span>
+            <select id="u-sort" aria-label="Sort by">
+              <option value="arrived">Newest arrivals</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="km">Lowest mileage</option>
+              <option value="year">Newest year</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="u-active" id="u-active"></div>
+      <div class="u-grid" id="u-grid"></div>
+
+      <div id="u-sold-wrap" hidden>
+        <div class="u-sold-head"><h2>Recently sold</h2><p>Gone to a new owner. Looking for something similar? Ask us.</p></div>
+        <div class="u-grid" id="u-sold-grid"></div>
+      </div>
+
+      <div class="u-cta">
+        <div><h3>Selling or trading in?</h3><p>Bring your car to Keizerstraat for a free valuation, or send us a few photos on WhatsApp. We take Honda, GAC, Isuzu and other brands.</p></div>
+        <a class="btn" target="_blank" rel="noopener" href="https://wa.me/5978919554?text=Hello%20Fernandes%2C%20I%20would%20like%20a%20valuation%20for%20my%20car.">Get a valuation <i>↗</i></a>
+      </div>
+      <p class="u-note">Changes reserved. Prices in USD incl. BTW. Cars marked "Demo" are example listings for this presentation; the live list comes from the Fernandes stock system.</p>
+    </section>
+  </div>
+</main>
+
+<dialog class="u-dialog" id="u-dialog">
+  <button class="u-d__close" type="button" aria-label="Close">×</button>
+  <div class="u-d" id="u-d"></div>
+</dialog>
+
+<script src="assets/data/models.js?v=6"></script>
+<script src="assets/data/used.js?v=1"></script>
+<script src="assets/js/f-base.js?v=6"></script>
+<script src="assets/js/f-nav.js?v=6"></script>
+<script src="assets/js/f-used.js?v=1"></script>
+</body>
+</html>

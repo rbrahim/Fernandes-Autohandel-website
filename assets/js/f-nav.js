@@ -31,7 +31,7 @@
     }).join('');
     const feat = MODELS.find((m) => m.id === (world === 'drive' ? 'aion-v' : 'd-max'));
     const links = world === 'drive'
-      ? `<a class="mega__link" href="${home('#drive')}">All Drive models <span>→</span></a><a class="mega__link" href="#">Compare models <span>⇄</span></a><a class="mega__link" href="${home('#services')}">Used cars <span>→</span></a><a class="mega__link mega__link--accent" href="${home('#contact')}">Book a test drive <span>↗</span></a>`
+      ? `<a class="mega__link" href="${home('#drive')}">All Drive models <span>→</span></a><a class="mega__link" href="#">Compare models <span>⇄</span></a><a class="mega__link" href="used.html">Used cars <span>→</span></a><a class="mega__link mega__link--accent" href="${home('#contact')}">Book a test drive <span>↗</span></a>`
       : `<a class="mega__link" href="${home('#work')}">All Work vehicles <span>→</span></a><a class="mega__link" href="${home('#services')}">Rental fleet <span>→</span></a><a class="mega__link" href="#">Fleet &amp; business <span>→</span></a><a class="mega__link mega__link--accent" href="${home('#contact')}">Fernandes Truck Center <span>↗</span></a>`;
     return `<div class="mega__cols" style="--cols:${groups.length}">${cols}</div>` +
       `<div class="mega__side"><a class="mega__feature" href="${href(feat)}"><img src="${IMG + feat.img}" alt="" style="object-position:${feat.pos}"><div><span class="mono">${world === 'drive' ? 'New · Electric' : 'Best seller'}</span><b>${esc(feat.brand)} ${esc(feat.name)}</b><span>from ${esc(price(feat))}</span></div></a>${links}</div>`;

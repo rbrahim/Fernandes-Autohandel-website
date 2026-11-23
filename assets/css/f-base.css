@@ -12,7 +12,7 @@ html, body { background: #f0f0ee; }
   --work-2: #1e2021;
   --work-3: #2a2d2e;
   --on-work: #f2f1ed;
-  --accent: #189a45;            /* Fernandes green */
+  --accent: #12803b;            /* Fernandes green, deep enough for white text (5:1) */
   --accent-2: #34c46a;          /* green on dark */
   --sans: 'Geist', system-ui, sans-serif;
   --mono: 'Geist Mono', ui-monospace, monospace;

@@ -121,7 +121,7 @@
   <nav class="nav__links" id="nav">
     <button class="nav__item" type="button" data-menu="drive" aria-expanded="false" aria-controls="mega-drive"><i></i>Drive<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
     <button class="nav__item" type="button" data-menu="work" aria-expanded="false" aria-controls="mega-work"><i></i>Work<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
-    <a href="#services">Used</a>
+    <a href="used.html">Used</a>
     <a href="#services">Rental &amp; lease</a>
     <a href="#services">Service</a>
     <a href="#fernandes">About</a>
@@ -226,15 +226,10 @@
   <div class="used" data-reveal>
     <div>
       <h4>Used cars</h4>
-      <p class="used__count">14 in stock · 3 just arrived</p>
-      <a class="btn btn--light" href="#">See all used cars <i>→</i></a>
+      <p class="used__count" id="used-count"></p>
+      <a class="btn btn--light" href="used.html">See all used cars <i>→</i></a>
     </div>
-    <table>
-      <tr><td>Honda HR-V EX</td><td><span class="tag">Just arrived</span></td><td>2021</td><td>38,000 km</td><td class="num">USD 23,900</td></tr>
-      <tr><td>Isuzu Traviz</td><td><span class="tag">Just arrived</span></td><td>2023</td><td>18,000 km</td><td class="num">USD 27,800</td></tr>
-      <tr><td>Honda City AT</td><td></td><td>2017</td><td>24,000 km</td><td class="num">USD 10,450</td></tr>
-      <tr class="sold"><td>Isuzu D-Max 4x4</td><td><span class="tag tag--sold">Recently sold</span></td><td>2020</td><td>72,000 km</td><td class="num">USD 24,500</td></tr>
-    </table>
+    <table id="used-table"></table>
   </div>
 </section>
 
@@ -262,6 +257,7 @@
 </section>
 
 <script src="assets/data/models.js?v=3"></script>
+<script src="assets/data/used.js?v=1"></script>
 <script src="assets/js/ytbg.js?v=3"></script>
 <script src="assets/js/f-base.js?v=3"></script>
 <script src="assets/js/f-nav.js?v=3"></script>
@@ -394,6 +390,20 @@
     const target = [...rail.children].find((c) => c.querySelector('h3').textContent === m.name);
     if (target) setTimeout(() => rail.scrollTo({ left: target.offsetLeft - rail.offsetLeft, behavior: 'smooth' }), 500);
   }));
+
+  /* ---------------- Used cars teaser: same data as used.html, kept low-key (text only) ---------------- */
+  const USED = window.FAH_USED || [];
+  const usedTable = document.getElementById('used-table');
+  if (usedTable && USED.length) {
+    const inStock = USED.filter((c) => c.status !== 'sold');
+    const fresh = inStock.filter((c) => c.status === 'new');
+    document.getElementById('used-count').textContent = `${inStock.length} in stock · ${fresh.length} just arrived`;
+    const newest = inStock.slice().sort((a, b) => b.arrived.localeCompare(a.arrived)).slice(0, 3);
+    const lastSold = USED.filter((c) => c.status === 'sold').sort((a, b) => (b.sold || '').localeCompare(a.sold || '')).slice(0, 1);
+    const label = { new: '<span class="tag">Just arrived</span>', special: '<span class="tag">Special offer</span>', sold: '<span class="tag tag--sold">Recently sold</span>', stock: '' };
+    usedTable.innerHTML = newest.concat(lastSold).map((c) =>
+      `<tr${c.status === 'sold' ? ' class="sold"' : ''}><td><a href="used.html${c.status === 'sold' ? '' : '?car=' + c.id}">${esc(c.title)}</a></td><td>${label[c.status]}</td><td>${c.year}</td><td>${c.km.toLocaleString('en-US')} km</td><td class="num">USD ${c.price.toLocaleString('en-US')}</td></tr>`).join('');
+  }
 })();
 </script>
 </body>
