@@ -32,7 +32,9 @@ assets/
 
 ## Hosting
 
-**Cloudflare Pages:** framework preset *None*, build command *empty*, build output directory `/`. Every push to `main` deploys.
+**Cloudflare (Workers with static assets):** build command *empty*, deploy command `npx wrangler deploy`. `wrangler.jsonc` serves the repository root as the site; `.assetsignore` keeps README and config files offline. The `name` in `wrangler.jsonc` must match the Worker name in Cloudflare. Every push to `main` deploys.
+
+**Cloudflare Pages (alternative):** framework preset *None*, build command *empty*, build output directory `/`.
 
 **Local (IIS):** the folder is served as `http://localhost/FAH/`. A local-only `web.config` (git-ignored) disables caching while developing.
 

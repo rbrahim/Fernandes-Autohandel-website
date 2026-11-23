@@ -1,0 +1,10 @@
+// Cloudflare Workers (static assets): the repository root is the website, no build step.
+// Deploy command in Cloudflare: npx wrangler deploy
+{
+  "name": "fernandes-autohandel-website",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./",
+    "html_handling": "auto-trailing-slash"
+  }
+}

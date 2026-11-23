@@ -1,0 +1,9 @@
+# Files in the repo that should not be served as part of the website
+.git
+.gitignore
+.assetsignore
+wrangler.jsonc
+README.md
+_archive
+web.config
+.impeccable
