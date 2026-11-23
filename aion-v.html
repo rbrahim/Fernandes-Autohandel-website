@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="assets/css/f-base.css?v=5">
 <link rel="stylesheet" href="assets/css/f-nav.css?v=5">
 <link rel="stylesheet" href="assets/css/f-model.css?v=5">
+<link rel="stylesheet" href="assets/css/f-compact.css?v=1">
 <style>
   /* Aion V's own look: warm tech. Deep warm graphite, desert sand, the orange glow from GAC's own renders;
      the accent follows the chosen paint colour. */
@@ -108,11 +109,11 @@
     <div class="save" id="save">
       <h4>What would you save? <span class="mono" style="opacity:.6">Estimate</span></h4>
       <div><label for="s-km">Driving per month <b id="s-km-out"></b></label><input id="s-km" type="range" min="500" max="5000" step="250" value="1500"></div>
-      <div><label for="s-fuel">Petrol price <b id="s-fuel-out"></b></label><input id="s-fuel" type="range" min="0.8" max="2.2" step="0.05" value="1.35"></div>
-      <div><label for="s-kwh">Electricity price <b id="s-kwh-out"></b></label><input id="s-kwh" type="range" min="0.05" max="0.6" step="0.01" value="0.18"></div>
+      <div><label for="s-fuel">Petrol price <b id="s-fuel-out"></b></label><input id="s-fuel" type="range" min="30" max="70" step="0.5" value="48"></div>
+      <div><label for="s-kwh">Electricity price <b id="s-kwh-out"></b></label><input id="s-kwh" type="range" min="2" max="8" step="0.01" value="4.68"></div>
       <div class="save__cmp"><div><small>Petrol SUV · 8 L/100 km</small><b id="s-petrol"></b></div><div><small>Aion V · ~15 kWh/100 km</small><b id="s-ev"></b></div></div>
       <div class="save__out"><div><small class="mono" style="opacity:.8">You save per month</small><br><b id="s-diff"></b></div><span id="s-year"></span></div>
-      <p>Indication with demo prices and typical consumption. Set the sliders to your own situation.</p>
+      <p>Indication in SRD: petrol SRD 48 / L, electricity SRD 4.68 / kWh, typical consumption. Set the sliders to your own situation.</p>
     </div>
   </div>
 </section>
@@ -290,7 +291,7 @@
       { name: 'Ocean Gray',    hex: '#5d6b7d', ink: '#fff',    front: 'pr-image18.jpg' },
       { name: 'Shadow Black',  hex: '#1b1b1c', ink: '#fff',    front: 'aion-v-gac.png', accent: '#5a5f66' }
     ],
-    ev: { kwhPer100: 15, petrolLper100: 8 },
+    ev: { kwhPer100: 15, petrolLper100: 8, currency: 'SRD' },
     related: ['aion-ut', 'emkoo', 'gs8', 's7']
   });
 </script>

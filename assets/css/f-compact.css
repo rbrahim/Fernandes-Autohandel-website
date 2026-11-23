@@ -1,0 +1,146 @@
+/*
+ * Laptop screens (desktop width, low height: 1366×768, 1280×720, 1440×800 …).
+ * Every block should still fit one screen so the mouse wheel pages cleanly.
+ * Loaded last on every page.
+ */
+@media (min-width: 1101px) and (max-height: 860px) {
+  /* ---------- shared ---------- */
+  .block { padding-top: 92px; padding-bottom: 26px; }
+  .block__head { margin-bottom: 14px; gap: 16px; }
+  .block__title { font-size: clamp(48px, 6.6vw, 96px); }
+  .block__title--sm { font-size: clamp(30px, 3.3vw, 48px); }
+  .block__lede { font-size: 15px; max-width: 34rem; }
+  .nav { top: 8px; padding-top: 7px; padding-bottom: 7px; }
+  .nav__logo img { height: 32px; }
+  .mega { top: 70px; }
+
+  /* homepage: hero (selectors carry .hero/.range so they beat the page's own inline styles) */
+  .hero .layer { padding-top: 92px; padding-bottom: 118px; }
+  .hero .layer h1, .hero .layer h2.h1 { font-size: clamp(44px, 6vw, 88px); }
+  .hero .now { margin: 14px 0 12px; min-height: 40px; }
+  .hero .switch-wrap { bottom: 22px; gap: 6px; }
+  .hero .switch button { padding: 11px 32px; font-size: 19px; }
+
+  /* homepage: rails */
+  #drive .block__title, #work .block__title { font-size: clamp(44px, 5.6vw, 80px); }
+  .range .range__bar { margin-bottom: 10px; flex-wrap: nowrap; }
+  .range .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+  .range .filters::-webkit-scrollbar { display: none; }
+  .range .filters button { flex: none; padding: 7px 13px; font-size: 13px; }
+  .range .card { min-height: 0; }
+  .range .card__img { min-height: 150px; }
+  .range .card__body { padding: 6px 18px 14px; gap: 8px; }
+  .range .card h3 { font-size: 24px; }
+  .range .range__more { margin-top: 10px; }
+
+  /* homepage: Fernandes / services / contact */
+  .fern__year { font-size: clamp(72px, 9vw, 140px); }
+  .fern__text { gap: 16px; }
+  .fern__media { min-height: 0; }
+  .facts div { padding-top: 10px; padding-bottom: 10px; }
+  .facts b { font-size: 19px; }
+  .svc a { min-height: 140px; padding: 18px; }
+  .svc h4 { font-size: 20px; }
+  .used { padding: 14px 20px; }
+  .used td { padding: 7px 8px; }
+  .contact__cta h3 { font-size: clamp(38px, 4.2vw, 64px); }
+  .loc { padding: 18px; gap: 10px; }
+  .loc .loc__img { aspect-ratio: 16 / 6; }
+  .legal { margin-top: 14px; }
+
+  /* ---------- model pages ---------- */
+  .mbar { top: 72px; }
+  .page-model .block:not(.m-hero) { padding-top: 124px; padding-bottom: 24px; }
+  .page-model .block__head { margin-bottom: 14px; }
+  .m-hero__inner { padding-bottom: 28px; }
+  .m-hero h1 { font-size: var(--h1, clamp(100px, 18vw, 260px)); margin-bottom: 10px; }
+  .m-hero__side { padding: 16px; gap: 12px; }
+  .m-hero__facts b { font-size: 18px; }
+
+  .story__card { padding: 20px 24px; }
+  .story__card h2 { font-size: clamp(28px, 2.8vw, 40px); }
+  .story__card p { font-size: 15px; margin-top: 8px; }
+  .feat { margin-top: 8px; }
+  .feat li { padding: 6px 0; }
+  .feat li span { font-size: 13px; }
+  .story__img { min-height: 110px; }
+
+  .conf { min-height: 0; }
+  .conf__bar { padding-top: 10px; }
+  .sw { padding: 4px 12px 4px 4px; font-size: 13px; }
+  .sw i { width: 26px; height: 26px; }
+
+  .gal { min-height: 0; }
+  .gal figcaption { padding: 30px 14px 12px; }
+  .gal figcaption b { font-size: 16px; }
+
+  .jobs { min-height: 0; }
+  .job figcaption b { font-size: 18px; }
+
+  .c3__img { aspect-ratio: 16 / 8; }
+  .c3__body { padding: 14px 18px 16px; }
+  .c3__body h4 { font-size: 19px; margin: 4px 0; }
+  .c3__body p { font-size: 14px; }
+  .c3.tile--paint { padding: 20px !important; }
+
+  .quote { padding: 18px; gap: 12px; }
+  .quote blockquote { font-size: 15px; }
+  .quote blockquote::before { font-size: 44px; }
+  .quote--big blockquote { font-size: clamp(18px, 1.6vw, 22px); }
+
+  .specs__table { padding: 18px 22px; }
+  .specs__table h4 { margin-bottom: 6px; }
+  .specs__table td { padding: 6px 0; font-size: 14px; }
+  .tile { padding: 16px 18px; gap: 6px; }
+  .tile h4 { font-size: 18px; }
+  .tile p { font-size: 14px; }
+
+  .vcard { padding: 12px 16px; }
+  .vcard h4 { font-size: 17px; }
+  .vcard__foot b { font-size: 18px; }
+  .vtable { padding: 10px 16px; }
+  .vtable td, .vtable th { padding-top: 4px; padding-bottom: 4px; font-size: 13px; }
+
+  .ev__num { padding: 14px 18px; gap: 6px; }
+  .ev__num b { font-size: clamp(36px, 3.6vw, 56px); }
+  .ev__num span { font-size: 13px; }
+  .save { gap: 8px; padding: 18px 22px; }
+  .save__cmp b { font-size: 20px; }
+  .save__out b { font-size: 32px; }
+
+  .panel { padding: 18px 22px; gap: 10px; }
+  .calc__out { padding: 12px 16px; }
+  .calc__out .big { font-size: 38px; }
+  .terms button { padding: 7px 0; }
+  .form { gap: 8px; }
+  .form input, .form select, .form textarea { padding: 8px 12px; font-size: 14px; }
+  .form textarea { min-height: 46px; }
+
+  .rel__img { aspect-ratio: 16 / 9; }
+  .rel__body b { font-size: 19px; }
+}
+
+/* very short screens (1280×720 and similar) */
+@media (min-width: 1101px) and (max-height: 740px) {
+  .block__lede { font-size: 14px; }
+  .block__title--sm { font-size: clamp(28px, 3vw, 42px); }
+  .page-model .block:not(.m-hero) { padding-top: 118px; }
+  .story__img { display: none; }
+  .gal figcaption span { display: none; }
+  .c3__body p { font-size: 13px; }
+  .quote blockquote { font-size: 14px; }
+  .facts span { font-size: 12px; }
+  .svc a { min-height: 120px; }
+  .svc p { display: none; }
+  .fern__year { font-size: clamp(64px, 8vw, 120px); }
+  .rel__img { aspect-ratio: 2 / 1; }
+  .contact .loc dl { font-size: 13px; }
+  #drive .block__title, #work .block__title { font-size: clamp(40px, 4.6vw, 64px); }
+  #drive .block__lede, #work .block__lede { display: none; }
+  .range .card__img { min-height: 120px; }
+  .range .card__body { gap: 6px; padding-bottom: 12px; }
+  .range .card__foot { padding-top: 8px; }
+  .range .range__more .btn { height: 40px; }
+  .vtable td, .vtable th { padding-top: 3px; padding-bottom: 3px; font-size: 12.5px; }
+  .vcard { padding: 10px 14px; }
+}

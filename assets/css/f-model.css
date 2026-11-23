@@ -210,6 +210,11 @@ body.nav-hidden .mbar { top: 12px; }
 .block--dark .feat li span, .block--dark .specs__table td:first-child { color: rgba(242,241,237,.55); }
 .block--dark .tile--paint { background: var(--paint); color: var(--paint-ink); }
 .block--dark .c3__img { background: #0b0c0d; }
+/* paint colour as small text on dark: lift it so dark paints (red, black, blue) stay readable */
+.block--dark .c3__body i, .block--dark .feat li i, .block--dark .ev__num i, .block--dark .story__card .mono, .block--dark .vcard__tag { color: color-mix(in srgb, var(--paint) 45%, #ffffff); }
+.block--dark .c3.tile--paint i, .block--dark .tile--paint .mono { color: inherit; }
+/* muted text on light blocks and white surfaces */
+.block--stone .feat li span, .block--white .feat li span { color: var(--muted); }
 .block--dark .btn--light { background: rgba(255,255,255,.1); color: var(--on-work); box-shadow: none; }
 .block--dark .btn--light i { background: var(--on-work); color: var(--work); }
 

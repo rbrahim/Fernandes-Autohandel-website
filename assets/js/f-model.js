@@ -182,14 +182,15 @@ window.FAHModel = function (cfg) {
   const save = $('#save');
   if (save && cfg.ev) {
     const km = $('#s-km', save), fuel = $('#s-fuel', save), kwh = $('#s-kwh', save);
-    const usd2 = (n) => 'USD ' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    const cur = cfg.ev.currency || 'USD';                     // running costs are local: SRD in Suriname
+    const usd2 = (n) => cur + ' ' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
     const run = () => {
       const k = +km.value;
       const petrol = k / 100 * cfg.ev.petrolLper100 * +fuel.value;
       const elec = k / 100 * cfg.ev.kwhPer100 * +kwh.value;
       $('#s-km-out', save).textContent = k.toLocaleString('en-US') + ' km';
-      $('#s-fuel-out', save).textContent = 'USD ' + (+fuel.value).toFixed(2) + ' / L';
-      $('#s-kwh-out', save).textContent = 'USD ' + (+kwh.value).toFixed(2) + ' / kWh';
+      $('#s-fuel-out', save).textContent = cur + ' ' + (+fuel.value).toFixed(2) + ' / L';
+      $('#s-kwh-out', save).textContent = cur + ' ' + (+kwh.value).toFixed(2) + ' / kWh';
       $('#s-petrol', save).textContent = usd2(petrol);
       $('#s-ev', save).textContent = usd2(elec);
       $('#s-diff', save).textContent = usd2(Math.max(0, petrol - elec));

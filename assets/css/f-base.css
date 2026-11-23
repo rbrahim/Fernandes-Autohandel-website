@@ -6,7 +6,7 @@ html, body { background: #f0f0ee; }
   --white: #fcfcfb;
   --ink: #121212;
   --ink-2: #3a3a3a;
-  --muted: #77756f;
+  --muted: #63615b;           /* 4.5:1+ on paper and stone */
   --rule: rgba(18, 18, 18, .14);
   --work: #141516;
   --work-2: #1e2021;
