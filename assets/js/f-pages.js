@@ -69,4 +69,39 @@
       form.classList.add('sent');
     });
   }
+
+  /* ---------- generic demo forms (rental, lease): validate, show the thank-you, never send ---------- */
+  $$('form[data-demo]').forEach((f) => f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    $$('[aria-invalid]', f).forEach((i) => i.removeAttribute('aria-invalid'));
+    const missing = $$('[required]', f).filter((i) => !i.value.trim());
+    missing.forEach((i) => i.setAttribute('aria-invalid', 'true'));
+    if (missing.length) { missing[0].focus(); return; }
+    f.classList.add('sent');
+  }));
+
+  /* ---------- rental: dates -> number of days, tiles pre-select the vehicle type ---------- */
+  const rFrom = $('#r-from'), rTo = $('#r-to'), rDays = $('#r-days'), rType = $('#r-type');
+  if (rFrom && rTo && rDays) {
+    const today = new Date().toISOString().slice(0, 10);
+    rFrom.min = today; rTo.min = today;
+    const days = () => {
+      if (rFrom.value) rTo.min = rFrom.value;
+      if (!rFrom.value || !rTo.value) { rDays.textContent = 'Choose your dates to see the number of days.'; return; }
+      const n = Math.round((new Date(rTo.value) - new Date(rFrom.value)) / 864e5);
+      if (n < 1) { rDays.textContent = 'The return date must be after the pick-up date.'; return; }
+      const car = !rType || !rType.value || rType.value === 'Car';
+      rDays.innerHTML = `<b>${n} ${n === 1 ? 'day' : 'days'}</b>` + (car ? ` · cars from <b>USD ${(35 * n).toLocaleString('en-US')}</b>, excluding deposit` : ' · we confirm the rate and deposit for this vehicle type');
+    };
+    [rFrom, rTo, rType].forEach((i) => i && i.addEventListener('input', days));
+    $$('[data-rent]').forEach((a) => a.addEventListener('click', () => { if (rType) { rType.value = a.dataset.rent; days(); } }));
+  }
+
+  /* ---------- lease request: model list from the catalogue ---------- */
+  const lModel = $('#l-model');
+  if (lModel) {
+    const models = window.FAH_MODELS || [];
+    const group = (w, label) => `<optgroup label="${label}">` + models.filter((m) => m.world === w).map((m) => `<option>${m.brand} ${m.name}</option>`).join('') + '</optgroup>';
+    lModel.innerHTML = '<option value="">Choose a model</option>' + group('drive', 'Drive · cars and SUVs') + group('work', 'Work · pick-ups, trucks, ATV') + '<option>Not sure yet, advise me</option>';
+  }
 })();

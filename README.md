@@ -14,6 +14,7 @@ Built by Adept as a phase-1 demo. No build step, no framework.
 | `aion-v.html` | GAC Aion V model page (EV: range, charging, savings calculator in SRD) |
 | `used.html` | Used cars: faceted filters, sorting, shareable URLs, detail dialog. Data in `assets/data/used.js` |
 | `about.html` | About: timeline since 1860/1953, mission & values, ISO 9001 / HSEQ, community, careers, locations & hours |
+| `rental-lease.html` | Rental (from USD 35/day, reservation with day count), business lease, private lease, ways to buy + document checklists, lease quote request |
 | `service.html` | Service: how it works, workshop booking form (`?model=hr-v` pre-fills), 24/7 Roadside with the number for the current time, parts, trucks & fleet |
 
 ## Structure

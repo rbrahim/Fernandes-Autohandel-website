@@ -177,3 +177,6 @@ body[data-on="dark"] .dots a { color: var(--on-work); }
   .facts { grid-template-columns: 1fr; }
   .facts div:nth-child(even) { padding-left: 0; border-left: 0; }
 }
+
+/* secondary text on the green accent tile: full white for 5:1 */
+.svc a.svc--accent p { opacity: 1; }
