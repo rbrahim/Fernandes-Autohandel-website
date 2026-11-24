@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare models — Fernandes Autohandel</title>
+<meta name="description" content="Compare Honda, GAC and Isuzu models side by side at Fernandes Autohandel: price, fuel, engine, range, seats and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/f-base.css?v=7">
+<link rel="stylesheet" href="assets/css/f-nav.css?v=9">
+<link rel="stylesheet" href="assets/css/f-model.css?v=7">
+<link rel="stylesheet" href="assets/css/f-pages.css?v=1">
+<link rel="stylesheet" href="assets/css/f-catalog.css?v=1">
+<link rel="stylesheet" href="assets/css/f-compact.css?v=2">
+<style>:root { --stone: #efebe5; --paint: var(--accent); --paint-ink: #fff; }</style>
+</head>
+<body data-on="light" data-home="index.html" data-img="assets/img/">
+
+<header class="nav">
+  <a class="nav__logo" href="index.html"><img src="assets/img/brand/fernandes-logo-white.png" alt="Fernandes Autohandel N.V."></a>
+  <nav class="nav__links" id="nav">
+    <button class="nav__item" type="button" data-menu="drive" aria-expanded="false" aria-controls="mega-drive"><i></i>Drive<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+    <button class="nav__item" type="button" data-menu="work" aria-expanded="false" aria-controls="mega-work"><i></i>Work<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+    <a href="used.html">Used</a>
+    <a href="rental-lease.html">Rental &amp; lease</a>
+    <a href="service.html">Service</a>
+    <a href="about.html">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="btn" href="#contact">Test drive <i>↗</i></a>
+  <button class="btn menu-btn" data-menu-toggle aria-expanded="false" aria-controls="nav">Menu <i>≡</i></button>
+</header>
+<div class="mega" id="mega-drive" data-mega="drive" role="region" aria-label="Drive models"></div>
+<div class="mega" id="mega-work" data-mega="work" role="region" aria-label="Work models"></div>
+<nav class="dots" aria-label="Sections"></nav>
+
+<section class="block cmp-page" id="top" data-block="Compare">
+  <div class="block__head" data-reveal>
+    <h2 class="block__title block__title--sm">Compare models<span>.</span></h2>
+    <p class="block__lede">Put up to three Honda, GAC or Isuzu models side by side. Change a model with its menu; tick "Only differences" to see what sets them apart.</p>
+  </div>
+  <div class="cmp" id="cmp"></div>
+  <p class="cmp-legal">* Demo prices, indication only. Figures come from the model pages and brochures; where we have not published a figure yet it says "On request".</p>
+</section>
+
+<section class="block block--dark" id="contact" data-block="Contact">
+  <div class="contact" data-reveal>
+    <div class="contact__cta">
+      <span class="mono">Test drive · Quote · Service</span>
+      <h3>Narrowed it down?</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="https://wa.me/5978919554?text=Hello%2C%20I%20would%20like%20to%20book%20a%20test%20drive.">Book a test drive <i>↗</i></a><a class="btn btn--ghost" href="service.html#book">Book a service <i><b>→</b></i></a></div>
+    </div>
+    <div class="loc">
+      <span class="mono" style="opacity:.6">Showroom · Workshop · Parts</span>
+      <h4>Fernandes Autohandel</h4>
+      <dl><dt>Address</dt><dd>Keizerstraat 105-117, Paramaribo</dd><dt>Phone</dt><dd>(+597) 475046</dd><dt>Sales</dt><dd>WhatsApp 891-9554</dd><dt>Service</dt><dd>WhatsApp 842-7943</dd></dl>
+      <div class="loc__img"><img src="assets/img/fernandes/autoh-nwbouw-170714-fz70-011a_stagesmall.jpg" alt=""></div>
+    </div>
+    <div class="loc">
+      <span class="mono" style="opacity:.6">Trucks · Heavy equipment</span>
+      <h4>Fernandes Truck Center</h4>
+      <dl><dt>Address</dt><dd>Martin Luther Kingweg Br290 (ARDAC), Wanica</dd><dt>Phone</dt><dd>(+597) 889-8885</dd><dt>Phone</dt><dd>(+597) 888-7945</dd></dl>
+      <div class="loc__img"><img src="assets/img/trucks/f-series.jpg" alt="" style="object-position:70% center"></div>
+    </div>
+  </div>
+  <div class="legal"><span>Fernandes Autohandel N.V. · part of Fernandes Group</span><span>* Demo prices — indication only</span><span>Demo · November 2026</span></div>
+</section>
+
+<script src="assets/data/models.js?v=8"></script>
+<script src="assets/data/specs.js?v=1"></script>
+<script src="assets/js/f-base.js?v=7"></script>
+<script src="assets/js/f-nav.js?v=9"></script>
+<script src="assets/js/f-catalog.js?v=1"></script>
+</body>
+</html>

@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/ytbg.css?v=3">
 <link rel="stylesheet" href="assets/css/f-base.css?v=3">
-<link rel="stylesheet" href="assets/css/f-nav.css?v=3">
+<link rel="stylesheet" href="assets/css/f-nav.css?v=9">
 <link rel="stylesheet" href="assets/css/f-compact.css?v=1">
 <style>
   /* ================= Hero: switch + video reel per world ================= */
@@ -170,7 +170,7 @@
       <div class="range__nav"><span class="range__count"></span><button class="arrow" data-dir="-1" aria-label="Previous">←</button><button class="arrow" data-dir="1" aria-label="Next">→</button></div>
     </div>
     <div class="rail"></div>
-    <div class="range__more"><a class="btn btn--light" href="#">Compare models <i>⇄</i></a><a class="btn btn--light" href="#">Monthly calculator <i>↗</i></a></div>
+    <div class="range__more"><a class="btn btn--light" href="compare.html">Compare models <i>⇄</i></a><a class="btn btn--light" href="#">Monthly calculator <i>↗</i></a></div>
   </div>
 </section>
 
@@ -257,11 +257,11 @@
   <div class="legal"><span>Fernandes Autohandel N.V. · part of Fernandes Group</span><span>* Demo prices — indication only</span><span>Demo · November 2026</span></div>
 </section>
 
-<script src="assets/data/models.js?v=3"></script>
+<script src="assets/data/models.js?v=8"></script>
 <script src="assets/data/used.js?v=1"></script>
 <script src="assets/js/ytbg.js?v=3"></script>
 <script src="assets/js/f-base.js?v=3"></script>
-<script src="assets/js/f-nav.js?v=3"></script>
+<script src="assets/js/f-nav.js?v=9"></script>
 <script>
 (function () {
   const MODELS = window.FAH_MODELS;
@@ -385,7 +385,7 @@
   });
 
   // menu model links: jump to the world and highlight the right filter later (demo: scroll to the rail)
-  document.querySelectorAll('.mega__model').forEach((a) => a.addEventListener('click', () => {
+  document.querySelectorAll('.mega__model, .mcard').forEach((a) => a.addEventListener('click', () => {
     const m = MODELS.find((x) => x.id === a.dataset.model);
     const rail = document.querySelector(`[data-range="${m.world}"] .rail`);
     const target = [...rail.children].find((c) => c.querySelector('h3').textContent === m.name);

@@ -12,26 +12,51 @@
   const HOME = body.dataset.home || '';
   const IMG = body.dataset.img || '../assets/img/';
   const touch = matchMedia('(hover: none)').matches;
+  const CARDS = body.dataset.megaStyle === 'cards';      // card menu (white homepage); default: columns
+  const BRANDS = window.FAH_BRANDS || {};
 
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const price = (m) => (m.from ? 'USD ' + m.from.toLocaleString('en-US') + '*' : 'On request');
   const href = (m) => m.page || HOME + '#' + m.world;
   const home = (anchor) => HOME + anchor;
-  window.FAH = Object.assign(window.FAH || {}, { esc, price, href, IMG, MODELS, WORLDS });
+  window.FAH = Object.assign(window.FAH || {}, { esc, price, href, IMG, MODELS, WORLDS, BRANDS: window.FAH_BRANDS || {} });
+
+  // Card menu: one row per brand/group, every model as an equal card with its whole photo.
+  const cardsHTML = (world) => {
+    const groups = WORLDS[world].groups;
+    const inWorld = MODELS.filter((m) => m.world === world);
+    const rows = groups.map((g) => {
+      const items = inWorld.filter((m) => m.group === g);
+      const b = BRANDS[g];
+      const head = b
+        ? `<a class="mcard-row__head" href="${b.page}"><img src="${IMG + b.logo}" alt=""><b>${esc(g)}</b><span>All ${esc(g)} →</span></a>`
+        : `<div class="mcard-row__head"><b>${esc(g)}</b><span>${items.length} ${items.length === 1 ? 'model' : 'models'}</span></div>`;
+      return `<div class="mcard-row">${head}<div class="mcard-row__list">` +
+        items.map((m) => `<a class="mcard${m.studio ? ' mcard--studio' : ''}" href="${href(m)}" data-model="${m.id}"><span class="mcard__img"><img src="${IMG + (m.studio || m.img)}" alt="" loading="lazy" style="object-position:${m.studio ? 'center' : m.pos}"></span><b>${esc(m.name)}</b><span>${esc(m.type)}</span><span class="mcard__price">${esc(price(m))}</span></a>`).join('') +
+        '</div></div>';
+    }).join('');
+    const brandLinks = Object.entries(BRANDS).filter(([name]) => inWorld.some((m) => m.brand === name))
+      .map(([name, b]) => `<a class="mega__brand" href="${b.page}"><img src="${IMG + b.logo}" alt=""><span>${esc(name)}</span></a>`).join('');
+    const links = world === 'drive'
+      ? `<a class="mega__link" href="${home('#drive')}">All Drive models <span>→</span></a><a class="mega__link" href="compare.html">Compare models <span>⇄</span></a><a class="mega__link" href="used.html">Used cars <span>→</span></a><a class="mega__link mega__link--accent" href="${home('#contact')}">Book a test drive <span>↗</span></a>`
+      : `<a class="mega__link" href="${home('#work')}">All Work vehicles <span>→</span></a><a class="mega__link" href="compare.html?w=work">Compare vehicles <span>⇄</span></a><a class="mega__link" href="rental-lease.html#business">Fleet &amp; business <span>→</span></a><a class="mega__link mega__link--accent" href="${home('#contact')}">Fernandes Truck Center <span>↗</span></a>`;
+    return `<div class="mcards">${rows}</div><div class="mega__side"><span class="mono mega__side-label">Shop by brand</span><div class="mega__brands">${brandLinks}</div>${links}</div>`;
+  };
 
   const megaHTML = (world) => {
+    if (CARDS) return cardsHTML(world);
     const groups = WORLDS[world].groups;
     const inWorld = MODELS.filter((m) => m.world === world);
     const cols = groups.map((g) => {
       const items = inWorld.filter((m) => m.group === g);
       const one = items.length <= 4 && groups.length > 2;
-      return `<div class="mega__col ${one ? 'mega__col--one' : ''}"><h5>${esc(g)}<span>${items.length}</span></h5><div class="mega__list">` +
+      return `<div class="mega__col ${one ? 'mega__col--one' : ''}"><h5>${BRANDS[g] ? `<a class="mega__brandlink" href="${BRANDS[g].page}">${esc(g)} · all models →</a>` : esc(g)}<span>${items.length}</span></h5><div class="mega__list">` +
         items.map((m) => `<a class="mega__model" href="${href(m)}" data-model="${m.id}"><img src="${IMG + m.img}" alt="" style="object-position:${m.pos}"><div><b>${esc(m.name)}</b><span>${esc(m.type)} · ${esc(price(m))}</span></div></a>`).join('') +
         '</div></div>';
     }).join('');
     const feat = MODELS.find((m) => m.id === (world === 'drive' ? 'aion-v' : 'd-max'));
     const links = world === 'drive'
-      ? `<a class="mega__link" href="${home('#drive')}">All Drive models <span>→</span></a><a class="mega__link" href="#">Compare models <span>⇄</span></a><a class="mega__link" href="used.html">Used cars <span>→</span></a><a class="mega__link mega__link--accent" href="${home('#contact')}">Book a test drive <span>↗</span></a>`
+      ? `<a class="mega__link" href="${home('#drive')}">All Drive models <span>→</span></a><a class="mega__link" href="compare.html">Compare models <span>⇄</span></a><a class="mega__link" href="used.html">Used cars <span>→</span></a><a class="mega__link mega__link--accent" href="${home('#contact')}">Book a test drive <span>↗</span></a>`
       : `<a class="mega__link" href="${home('#work')}">All Work vehicles <span>→</span></a><a class="mega__link" href="rental-lease.html#rental">Rental fleet <span>→</span></a><a class="mega__link" href="rental-lease.html#business">Fleet &amp; business <span>→</span></a><a class="mega__link mega__link--accent" href="${home('#contact')}">Fernandes Truck Center <span>↗</span></a>`;
     return `<div class="mega__cols" style="--cols:${groups.length}">${cols}</div>` +
       `<div class="mega__side"><a class="mega__feature" href="${href(feat)}" data-default="${feat.id}" data-label="${world === 'drive' ? 'New · Electric' : 'Best seller'}"><span class="mega__preview-tag">Preview</span><img src="${IMG + feat.img}" alt="" style="object-position:${feat.pos}"><div><span class="mono">${world === 'drive' ? 'New · Electric' : 'Best seller'}</span><b>${esc(feat.brand)} ${esc(feat.name)}</b><span>from ${esc(price(feat))}</span></div></a>${links}</div>`;
@@ -65,7 +90,7 @@
 
   const init = () => {
     const megas = {};
-    document.querySelectorAll('[data-mega]').forEach((el) => { el.innerHTML = megaHTML(el.dataset.mega); megas[el.dataset.mega] = el; if (!touch) previewIn(el); });
+    document.querySelectorAll('[data-mega]').forEach((el) => { el.innerHTML = megaHTML(el.dataset.mega); el.classList.toggle('mega--cards', CARDS); megas[el.dataset.mega] = el; if (!touch && !CARDS) previewIn(el); });
     const triggers = [...document.querySelectorAll('.nav__item[data-menu]')];
     let closeTimer;
     const openMega = (w) => {

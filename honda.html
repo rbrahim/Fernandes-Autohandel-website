@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Honda — Fernandes Autohandel</title>
+<meta name="description" content="Honda at Fernandes Autohandel, Paramaribo: City, HR-V, CR-V, Elevate and Honda ATVs and UTVs. Test drive, brochures, service and original parts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/f-base.css?v=7">
+<link rel="stylesheet" href="assets/css/f-nav.css?v=9">
+<link rel="stylesheet" href="assets/css/f-model.css?v=7">
+<link rel="stylesheet" href="assets/css/f-pages.css?v=1">
+<link rel="stylesheet" href="assets/css/f-catalog.css?v=1">
+<link rel="stylesheet" href="assets/css/f-compact.css?v=2">
+<style>:root { --stone: #efebe5; --paint: var(--accent); --paint-ink: #fff; }</style>
+</head>
+<body data-on="dark" data-home="index.html" data-img="assets/img/" data-brand="Honda">
+
+<header class="nav">
+  <a class="nav__logo" href="index.html"><img src="assets/img/brand/fernandes-logo-white.png" alt="Fernandes Autohandel N.V."></a>
+  <nav class="nav__links" id="nav">
+    <button class="nav__item" type="button" data-menu="drive" aria-expanded="false" aria-controls="mega-drive"><i></i>Drive<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+    <button class="nav__item" type="button" data-menu="work" aria-expanded="false" aria-controls="mega-work"><i></i>Work<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+    <a href="used.html">Used</a>
+    <a href="rental-lease.html">Rental &amp; lease</a>
+    <a href="service.html">Service</a>
+    <a href="about.html">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="btn" href="#contact">Test drive <i>↗</i></a>
+  <button class="btn menu-btn" data-menu-toggle aria-expanded="false" aria-controls="nav">Menu <i>≡</i></button>
+</header>
+<div class="mega" id="mega-drive" data-mega="drive" role="region" aria-label="Drive models"></div>
+<div class="mega" id="mega-work" data-mega="work" role="region" aria-label="Work models"></div>
+<nav class="dots" aria-label="Sections"></nav>
+
+<!-- 1 · Hero -->
+<section class="block block--dark p-hero" id="top" data-block="Honda">
+  <img src="assets/img/honda/elevate/hero.jpg" alt="" style="object-position:center 60%">
+  <div class="p-hero__inner">
+    <div>
+      <span class="b-logo"><img src="assets/img/brand/honda-logo.png" alt="Honda"></span><br>
+      <span class="p-hero__kicker"><i></i>Honda at Fernandes</span>
+      <h1>Honda.</h1>
+      <p class="p-hero__lede">Cars, SUVs and the ATVs that reach the interior. Sold, serviced and kept on the road by Fernandes on Keizerstraat.</p>
+    </div>
+    <div class="p-hero__side">
+      <div class="p-hero__card"><div><b>1997</b><span>Honda ATVs for the interior</span></div></div><div class="p-hero__card"><div><b>2007</b><span>Honda Challenging Spirit Award</span></div></div>
+      <a class="p-hero__card p-hero__card--accent" href="#range"><div><b>See the Honda range</b><span>Prices, brochures and compare</span></div><span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Range -->
+<section class="block" id="range" data-block="Range">
+  <div class="block__head" data-reveal>
+    <h2 class="block__title block__title--sm">The Honda range<span>.</span></h2>
+    <p class="block__lede">From the City sedan to the Pioneer side-by-side. Filter by Drive or Work, open a model, or tick two or three to compare.</p>
+  </div>
+  <div class="filters" id="brand-filters" data-reveal></div>
+  <div class="bgrid" id="brand-models"></div>
+</section>
+
+<!-- 3 · Fernandes & brand -->
+<section class="block block--white" id="fernandes" data-block="Why Fernandes">
+  <div class="block__head" data-reveal>
+    <h2 class="block__title block__title--sm">Honda at Fernandes<span>.</span></h2>
+    <p class="block__lede">Buying is the start. We service, supply parts and help on the road, for as long as you drive it.</p>
+  </div>
+  <div class="b-why" data-reveal>
+    <div class="tile"><span class="mono muted">Service</span><h4>Serviced by Fernandes</h4><p>Honda-trained technicians and original parts at Keizerstraat, since 1953.</p></div><div class="tile"><span class="mono muted">Parts</span><h4>Original Honda parts</h4><p>Ordered and fitted by our own parts department. Ask the KCC on (+597) 475046.</p></div><div class="tile"><span class="mono muted">Off-road</span><h4>ATVs since 1997</h4><p>A hit with mining customers, who reach the interior much faster.</p></div>
+    <div class="tile tile--paint"><span class="mono">Brochures</span><h4>Take it home</h4><p>Full specifications and equipment, as PDF.</p><div class="b-dl"><a class="btn btn--light" href="assets/brochures/honda-hr-v.pdf" download>Honda HR-V <i>↓</i></a></div></div>
+  </div>
+</section>
+
+<section class="block block--dark" id="contact" data-block="Contact">
+  <div class="contact" data-reveal>
+    <div class="contact__cta">
+      <span class="mono">Test drive · Quote · Service</span>
+      <h3>Drive a Honda.</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="https://wa.me/5978919554?text=Hello%2C%20I%20would%20like%20to%20book%20a%20test%20drive%20in%20a%20Honda.">Book a test drive <i>↗</i></a><a class="btn btn--ghost" href="service.html#book">Book a service <i><b>→</b></i></a></div>
+    </div>
+    <div class="loc">
+      <span class="mono" style="opacity:.6">Showroom · Workshop · Parts</span>
+      <h4>Fernandes Autohandel</h4>
+      <dl><dt>Address</dt><dd>Keizerstraat 105-117, Paramaribo</dd><dt>Phone</dt><dd>(+597) 475046</dd><dt>Sales</dt><dd>WhatsApp 891-9554</dd><dt>Service</dt><dd>WhatsApp 842-7943</dd></dl>
+      <div class="loc__img"><img src="assets/img/fernandes/autoh-nwbouw-170714-fz70-011a_stagesmall.jpg" alt=""></div>
+    </div>
+    <div class="loc">
+      <span class="mono" style="opacity:.6">Trucks · Heavy equipment</span>
+      <h4>Fernandes Truck Center</h4>
+      <dl><dt>Address</dt><dd>Martin Luther Kingweg Br290 (ARDAC), Wanica</dd><dt>Phone</dt><dd>(+597) 889-8885</dd><dt>Phone</dt><dd>(+597) 888-7945</dd></dl>
+      <div class="loc__img"><img src="assets/img/trucks/f-series.jpg" alt="" style="object-position:70% center"></div>
+    </div>
+  </div>
+  <div class="legal"><span>Fernandes Autohandel N.V. · part of Fernandes Group</span><span>* Demo prices — indication only</span><span>Demo · November 2026</span></div>
+</section>
+
+<div class="tray" id="cmp-tray" hidden aria-live="polite"></div>
+<script src="assets/data/models.js?v=8"></script>
+<script src="assets/data/specs.js?v=1"></script>
+<script src="assets/js/f-base.js?v=7"></script>
+<script src="assets/js/f-nav.js?v=9"></script>
+<script src="assets/js/f-catalog.js?v=1"></script>
+</body>
+</html>

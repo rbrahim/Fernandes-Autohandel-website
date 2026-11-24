@@ -9,6 +9,9 @@ Built by Adept as a phase-1 demo. No build step, no framework.
 | File | Page |
 |---|---|
 | `index.html` | Homepage: Drive/Work switch with video reels, model rails, Fernandes, services, contact |
+| `index-white.html` | Homepage, white version: white bar with the colour logo, white menus and the card menu (every model as an equal card) |
+| `honda.html`, `gac.html`, `isuzu.html` | Brand pages: hero, the brand's models with filters and "Compare" toggles, why Fernandes, brochures, contact |
+| `compare.html` | Compare up to 3 models side by side (`?m=hr-v,aion-v`), "only differences". Specs in `assets/data/specs.js` (published figures only) |
 | `hr-v.html` | Honda HR-V model page |
 | `d-max.html` | Isuzu D-Max model page (versions & prices comparison) |
 | `aion-v.html` | GAC Aion V model page (EV: range, charging, savings calculator in SRD) |
