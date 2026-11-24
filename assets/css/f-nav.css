@@ -78,3 +78,10 @@ body.nav-hidden .mega { opacity: 0; visibility: hidden; }
 /* Brand name in a column heading links to the brand page */
 .mega__brandlink { color: inherit; transition: color .2s; }
 .mega__brandlink:hover { color: var(--accent-2); }
+
+/* ★ = model has its own page */
+.mstar { font-style: normal; font-size: .8em; color: var(--accent-2); margin-left: 5px; vertical-align: 1px; }
+.mega__legend { font-size: 12px; color: rgba(255,255,255,.6); padding: 6px 4px 0; }
+.mega__legend .mstar { margin: 0 4px 0 0; }
+body.theme-white .mstar { color: var(--accent); }
+body.theme-white .mega__legend { color: var(--muted); }
