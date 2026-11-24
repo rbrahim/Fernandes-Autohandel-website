@@ -85,3 +85,6 @@ body.nav-hidden .mega { opacity: 0; visibility: hidden; }
 .mega__legend .mstar { margin: 0 4px 0 0; }
 body.theme-white .mstar { color: var(--accent); }
 body.theme-white .mega__legend { color: var(--muted); }
+
+/* Column menu: studio shots shown whole on a light tile */
+.mega__model img.is-studio { object-fit: contain; background: #f1f1ef; padding: 3px 4px; }

@@ -54,7 +54,7 @@
       const items = inWorld.filter((m) => m.group === g);
       const one = items.length <= 4 && groups.length > 2;
       return `<div class="mega__col ${one ? 'mega__col--one' : ''}"><h5>${BRANDS[g] ? `<a class="mega__brandlink" href="${BRANDS[g].page}">${esc(g)} · all models →</a>` : esc(g)}<span>${items.length}</span></h5><div class="mega__list">` +
-        items.map((m) => `<a class="mega__model" href="${href(m)}" data-model="${m.id}"><img src="${IMG + m.img}" alt="" style="object-position:${m.pos}"><div><b>${esc(m.name)}${star(m)}</b><span>${esc(m.type)} · ${esc(price(m))}</span></div></a>`).join('') +
+        items.map((m) => `<a class="mega__model" href="${href(m)}" data-model="${m.id}"><img src="${IMG + (m.studio || m.img)}" alt=""${m.studio ? ' class="is-studio"' : ` style="object-position:${m.pos}"`}><div><b>${esc(m.name)}${star(m)}</b><span>${esc(m.type)} · ${esc(price(m))}</span></div></a>`).join('') +
         '</div></div>';
     }).join('');
     const feat = MODELS.find((m) => m.id === (world === 'drive' ? 'aion-v' : 'd-max'));
