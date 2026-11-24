@@ -4,10 +4,41 @@
  *  - section paging: one wheel step / PageDown / Space moves to the next full-screen block
  *    (blocks taller than the screen scroll normally until their edge)
  *  - nav hides while scrolling down and returns on scroll up or when the pointer nears the top
+ *  - reveal-on-scroll for [data-reveal] and the mobile menu toggle (needed on every page)
  */
 (function () {
   const init = () => {
     const body = document.body;
+
+    /* ---------- reveal on scroll ---------- */
+    const revealEls = [...document.querySelectorAll('[data-reveal]')];
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      revealEls.forEach((el) => io.observe(el));
+    }
+    // Safety net: anything inside the viewport is revealed on every scroll/page step and on a timer,
+    // so fast paging or a slow observer can never leave a block empty.
+    const revealVisible = () => revealEls.forEach((el) => {
+      if (el.classList.contains('in')) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) el.classList.add('in');
+    });
+    addEventListener('scroll', () => requestAnimationFrame(revealVisible), { passive: true });
+    setInterval(revealVisible, 500);
+    revealVisible();
+    addEventListener('beforeprint', () => revealEls.forEach((el) => el.classList.add('in')));
+
+    /* ---------- mobile menu ---------- */
+    const toggle = document.querySelector('[data-menu-toggle]');
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const open = body.classList.toggle('menu-open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    }
+
     const blocks = [...document.querySelectorAll('[data-block]')];
     const dots = document.querySelector('.dots');
     if (dots) {

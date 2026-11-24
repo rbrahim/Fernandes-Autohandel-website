@@ -74,33 +74,4 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
-
-/* Small shared helpers for the style demos */
-(function () {
-  const init = () => {
-    // reveal on scroll
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
-
-    // header state on scroll
-    const header = document.querySelector('[data-header]');
-    if (header) {
-      const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
-    }
-
-    // mobile menu
-    const toggle = document.querySelector('[data-menu-toggle]');
-    if (toggle) {
-      toggle.addEventListener('click', () => {
-        const open = document.body.classList.toggle('menu-open');
-        toggle.setAttribute('aria-expanded', String(open));
-      });
-    }
-  };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
+/* Reveal-on-scroll and the mobile menu toggle live in f-base.js, which every page loads. */

@@ -55,3 +55,22 @@ body[data-on="dark"] .nav { color: #fff; }
 .nav { transition: transform .45s var(--ease), color .4s, background .4s; }
 body.nav-hidden .nav { transform: translateY(calc(-100% - 24px)); }
 body.nav-hidden .mega { opacity: 0; visibility: hidden; }
+
+/* Hover a column in the mega menu: it widens and its photos grow, so models are easy to recognise.
+   The feature card on the right previews the model under the pointer. */
+@media (hover: hover) and (min-width: 1101px) {
+  .mega__cols { display: flex; gap: 20px; }
+  .mega__col { flex: 1 1 0; min-width: 0; transition: flex-grow .45s var(--ease); }
+  .mega__cols:hover .mega__col { flex-grow: .75; }
+  .mega__cols .mega__col:hover { flex-grow: 1.9; }
+  .mega__model img { transition: width .4s var(--ease), height .4s var(--ease), transform .3s var(--ease); }
+  .mega__col:hover .mega__model img { width: 136px; height: 90px; border-radius: 12px; }
+  .mega__col--one:hover .mega__list { grid-template-columns: 1fr 1fr; }   /* wider column: two across, so the menu doesn't grow taller */
+  .mega__col:hover .mega__model b { font-size: 16px; }
+  .mega__model:hover img { transform: scale(1.04); }
+  .mega__col:hover .mega__model { padding: 6px; }
+  .mega__feature img { transition: opacity .25s ease, transform .6s var(--ease); }
+  .mega__feature.is-swapping img { opacity: 0; transform: scale(1.03); }
+  .mega__feature .mega__preview-tag { position: absolute; top: 12px; left: 12px; font: 500 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,.9); color: var(--ink); opacity: 0; transition: opacity .2s; }
+  .mega__feature.is-preview .mega__preview-tag { opacity: 1; }
+}

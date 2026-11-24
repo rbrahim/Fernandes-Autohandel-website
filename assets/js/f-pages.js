@@ -32,9 +32,48 @@
   openState(); roadside();
   setInterval(() => { openState(); roadside(); }, 60000);
 
-  /* ---------- timeline arrows ---------- */
+  /* ---------- timeline: slow auto-scroll + arrows ---------- */
+  const tl = $('.tl');
+  let pauseTimeline = () => {};
+  if (tl) {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SPEED = 30;                       // px per second: calm enough to read along
+    let pos = 0, last = 0, visible = false, hold = 0, raf = 0, returning = false;
+    const max = () => tl.scrollWidth - tl.clientWidth;
+    const pause = (ms) => { hold = performance.now() + ms; tl.style.scrollSnapType = ''; };
+    pauseTimeline = pause;
+    const tick = (now) => {
+      raf = requestAnimationFrame(tick);
+      const dt = last ? Math.min(now - last, 1000) : 0;   // time-based, so a throttled frame rate keeps the same speed
+      last = now;
+      if (!visible || now < hold || returning || max() <= 0) return;
+      tl.style.scrollSnapType = 'none';     // snapping would fight a slow continuous scroll
+      if (Math.abs(tl.scrollLeft - pos) > 2) pos = tl.scrollLeft;   // the visitor moved it: continue from there
+      pos += SPEED * dt / 1000;
+      if (pos >= max()) {
+        pos = max(); tl.scrollLeft = pos;
+        returning = true;                   // rest on 2026, then glide back to the beginning
+        setTimeout(() => {
+          tl.style.scrollSnapType = '';
+          tl.scrollTo({ left: 0, behavior: 'smooth' });
+          setTimeout(() => { pos = 0; returning = false; hold = performance.now() + 2500; }, 1400);
+        }, 2500);
+        return;
+      }
+      tl.scrollLeft = pos;
+    };
+    if (!reduce) {
+      new IntersectionObserver((es) => { visible = es[0].isIntersecting; }, { threshold: 0.4 }).observe(tl);
+      ['pointerenter', 'focusin', 'touchstart'].forEach((ev) => tl.addEventListener(ev, () => pause(1e9), { passive: true }));
+      ['pointerleave', 'focusout', 'touchend'].forEach((ev) => tl.addEventListener(ev, () => pause(2000), { passive: true }));
+      tl.addEventListener('wheel', () => pause(4000), { passive: true });
+      hold = performance.now() + 1500;      // let the block settle before it starts moving
+      raf = requestAnimationFrame(tick);
+    }
+  }
   $$('[data-tl-dir]').forEach((b) => b.addEventListener('click', () => {
-    const tl = $('.tl'); if (!tl) return;
+    if (!tl) return;
+    pauseTimeline(6000);
     const w = tl.firstElementChild ? tl.firstElementChild.getBoundingClientRect().width + 12 : 300;
     tl.scrollBy({ left: w * 2 * +b.dataset.tlDir, behavior: 'smooth' });
   }));

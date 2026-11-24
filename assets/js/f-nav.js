@@ -34,12 +34,38 @@
       ? `<a class="mega__link" href="${home('#drive')}">All Drive models <span>→</span></a><a class="mega__link" href="#">Compare models <span>⇄</span></a><a class="mega__link" href="used.html">Used cars <span>→</span></a><a class="mega__link mega__link--accent" href="${home('#contact')}">Book a test drive <span>↗</span></a>`
       : `<a class="mega__link" href="${home('#work')}">All Work vehicles <span>→</span></a><a class="mega__link" href="rental-lease.html#rental">Rental fleet <span>→</span></a><a class="mega__link" href="rental-lease.html#business">Fleet &amp; business <span>→</span></a><a class="mega__link mega__link--accent" href="${home('#contact')}">Fernandes Truck Center <span>↗</span></a>`;
     return `<div class="mega__cols" style="--cols:${groups.length}">${cols}</div>` +
-      `<div class="mega__side"><a class="mega__feature" href="${href(feat)}"><img src="${IMG + feat.img}" alt="" style="object-position:${feat.pos}"><div><span class="mono">${world === 'drive' ? 'New · Electric' : 'Best seller'}</span><b>${esc(feat.brand)} ${esc(feat.name)}</b><span>from ${esc(price(feat))}</span></div></a>${links}</div>`;
+      `<div class="mega__side"><a class="mega__feature" href="${href(feat)}" data-default="${feat.id}" data-label="${world === 'drive' ? 'New · Electric' : 'Best seller'}"><span class="mega__preview-tag">Preview</span><img src="${IMG + feat.img}" alt="" style="object-position:${feat.pos}"><div><span class="mono">${world === 'drive' ? 'New · Electric' : 'Best seller'}</span><b>${esc(feat.brand)} ${esc(feat.name)}</b><span>from ${esc(price(feat))}</span></div></a>${links}</div>`;
+  };
+
+  // The big card on the right previews whichever model the pointer is on.
+  const previewIn = (mega) => {
+    const card = mega.querySelector('.mega__feature');
+    if (!card) return;
+    const img = card.querySelector('img'), label = card.querySelector('.mono'), name = card.querySelector('b'), from = card.querySelector('div > span:last-child');
+    let current = card.dataset.default, timer;
+    const show = (id, isPreview) => {
+      const m = MODELS.find((x) => x.id === id);
+      if (!m || id === current) { card.classList.toggle('is-preview', isPreview && !!m); return; }
+      current = id;
+      card.classList.add('is-swapping');
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        img.src = IMG + m.img; img.style.objectPosition = m.pos;
+        label.textContent = isPreview ? m.type : card.dataset.label;
+        name.textContent = m.brand + ' ' + m.name;
+        from.textContent = 'from ' + price(m);
+        card.href = href(m);
+        card.classList.toggle('is-preview', isPreview);
+        img.decode ? img.decode().catch(() => {}).then(() => card.classList.remove('is-swapping')) : card.classList.remove('is-swapping');
+      }, 120);
+    };
+    mega.querySelectorAll('.mega__model').forEach((a) => a.addEventListener('pointerenter', () => show(a.dataset.model, true)));
+    mega.querySelector('.mega__cols').addEventListener('pointerleave', () => show(card.dataset.default, false));
   };
 
   const init = () => {
     const megas = {};
-    document.querySelectorAll('[data-mega]').forEach((el) => { el.innerHTML = megaHTML(el.dataset.mega); megas[el.dataset.mega] = el; });
+    document.querySelectorAll('[data-mega]').forEach((el) => { el.innerHTML = megaHTML(el.dataset.mega); megas[el.dataset.mega] = el; if (!touch) previewIn(el); });
     const triggers = [...document.querySelectorAll('.nav__item[data-menu]')];
     let closeTimer;
     const openMega = (w) => {
