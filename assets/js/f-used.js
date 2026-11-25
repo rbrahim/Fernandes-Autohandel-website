@@ -12,6 +12,7 @@
   const usd = (n) => 'USD ' + Math.round(n).toLocaleString('en-US');
   const num = (n) => Math.round(n).toLocaleString('en-US');
   const monthly = (p) => { const f = p * 0.8, r = 0.09 / 12, n = 60; return f * r / (1 - Math.pow(1 + r, -n)); };
+  const photos = (c) => (c.imgs && c.imgs.length ? c.imgs : [c.img]);
   const STATUS = { new: 'Just arrived', special: 'Special offer', stock: 'In stock', sold: 'Recently sold' };
 
   /* ---------- filter model ---------- */
@@ -112,7 +113,7 @@
     const sold = c.status === 'sold';
     const badge = c.status === 'stock' ? '' : `<span class="badge badge--${c.status}">${STATUS[c.status]}</span>`;
     return `<${sold ? 'div' : 'button type="button"'} class="ucar${sold ? ' ucar--sold' : ''}" data-car="${c.id}"${sold ? '' : ` aria-label="${esc(c.title)}, ${esc(usd(c.price))}"`}>
-      <div class="ucar__img"><img src="${IMG + c.img}" alt="" loading="lazy">${badge}${c.demo ? '<span class="badge badge--demo">Demo</span>' : ''}</div>
+      <div class="ucar__img"><img src="${IMG + c.img}" alt="" loading="lazy">${badge}${c.demo ? '<span class="badge badge--demo">Demo</span>' : ''}${photos(c).length > 1 ? `<span class="badge badge--photos">${photos(c).length} photos</span>` : ''}</div>
       <div class="ucar__body">
         <span class="ucar__title">${esc(c.title)}</span>
         <span class="ucar__meta"><span>${c.year}</span><span>${num(c.km)} km</span><span>${esc(c.trans)}</span><span>${esc(c.drive)}</span></span>
@@ -196,13 +197,39 @@
   /* ---------- detail dialog ---------- */
   const dlg = $('#u-dialog');
   let openId = null;
+  let gal = null;                                // { list, i, title } for the open car's photos
+
+  const galleryHTML = (c) => {
+    const list = photos(c), many = list.length > 1;
+    const badge = c.status !== 'stock' ? `<span class="badge badge--${c.status}">${STATUS[c.status]}</span>` : '';
+    return `<div class="u-d__stage"><img id="u-d-photo" src="${IMG + list[0]}" alt="${esc(c.title)}${many ? ', photo 1 of ' + list.length : ''}">${badge}` +
+      (many ? `<button class="u-d__nav u-d__nav--prev" type="button" data-step="-1" aria-label="Previous photo">‹</button>
+        <button class="u-d__nav u-d__nav--next" type="button" data-step="1" aria-label="Next photo">›</button>
+        <span class="u-d__count" id="u-d-count" aria-hidden="true">1 / ${list.length}</span>` : '') + '</div>' +
+      (many ? `<div class="u-d__thumbs" role="group" aria-label="Photos">${list.map((p, i) => `<button type="button" data-photo="${i}" aria-label="Photo ${i + 1}"${i ? '' : ' aria-current="true"'}><img src="${IMG + p}" alt="" loading="lazy"></button>`).join('')}</div>` : '');
+  };
+  const show = (i) => {
+    if (!gal || gal.list.length < 2) return;
+    const n = gal.list.length;
+    gal.i = (i + n) % n;
+    const img = $('#u-d-photo');
+    img.classList.add('is-loading');
+    img.onload = () => img.classList.remove('is-loading');
+    img.src = IMG + gal.list[gal.i];
+    img.alt = `${gal.title}, photo ${gal.i + 1} of ${n}`;
+    $('#u-d-count').textContent = `${gal.i + 1} / ${n}`;
+    $$('[data-photo]', dlg).forEach((b) => {
+      if (+b.dataset.photo === gal.i) { b.setAttribute('aria-current', 'true'); b.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
+      else b.removeAttribute('aria-current');
+    });
+  };
   const openCar = (id) => {
     const c = CARS.find((x) => x.id === id);
     if (!c || c.status === 'sold') return;
     openId = id;
     const msg = `Hello Fernandes, I'm interested in the ${c.title}${c.plate ? ' (' + c.plate + ')' : ''}, ${c.year}, ${usd(c.price)}. Is it still available?`;
     $('#u-d').innerHTML = `
-      <div class="u-d__img"><img src="${IMG + c.img}" alt="${esc(c.title)}">${c.status !== 'stock' ? `<span class="badge badge--${c.status}">${STATUS[c.status]}</span>` : ''}</div>
+      <div class="u-d__img">${galleryHTML(c)}</div>
       <div class="u-d__body">
         <div><span class="mono muted">${esc(c.brand)} · ${esc(c.body)}${c.plate ? ' · ' + esc(c.plate) : ''}</span><h2 id="u-d-title" style="margin-top:8px">${esc(c.title)}</h2></div>
         <div class="u-d__price"><div><small>Price incl. BTW</small>${c.was ? `<s style="color:var(--muted);font-size:14px">${usd(c.was)}</s> ` : ''}<b>${usd(c.price)}</b></div><div style="text-align:right"><small>Indication*</small><b style="font-size:18px">${usd(monthly(c.price))}/mo</b></div></div>
@@ -218,12 +245,32 @@
         </div>
         <p class="u-d__fine">Inspected in the Fernandes workshop. Changes reserved; prices incl. BTW. * 20% down, 60 months, 9% (indication, not a credit offer).${c.demo ? ' <b>Demo listing.</b>' : ''}</p>
       </div>`;
+    gal = { list: photos(c), i: 0, title: c.title };
     dlg.setAttribute('aria-labelledby', 'u-d-title');
     if (!dlg.open) dlg.showModal();
     writeURL(openId);
   };
-  dlg.addEventListener('close', () => { openId = null; writeURL(null); });
-  dlg.addEventListener('click', (e) => { if (e.target === dlg || e.target.closest('.u-d__close')) dlg.close(); });
+  dlg.addEventListener('close', () => { openId = null; gal = null; writeURL(null); });
+  dlg.addEventListener('click', (e) => {
+    if (e.target === dlg || e.target.closest('.u-d__close')) { dlg.close(); return; }
+    const nav = e.target.closest('[data-step]');
+    if (nav) { show(gal.i + +nav.dataset.step); return; }
+    const th = e.target.closest('[data-photo]');
+    if (th) show(+th.dataset.photo);
+  });
+  dlg.addEventListener('keydown', (e) => {
+    if (!gal || gal.list.length < 2) return;
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(gal.i - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(gal.i + 1); }
+  });
+  // swipe on touch screens
+  let x0 = null;
+  dlg.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse' && e.target.closest('.u-d__stage')) x0 = e.clientX; });
+  dlg.addEventListener('pointerup', (e) => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) show(gal.i + (dx < 0 ? 1 : -1));
+  });
 
   /* ---------- go ---------- */
   const startCar = readURL();
